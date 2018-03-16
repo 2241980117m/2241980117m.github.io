@@ -15,16 +15,16 @@
     <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
   
 
-  <meta name="description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。 常见的数据在两个页面中传递的方式有以下几种:             session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCrede">
+  <meta name="description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。常见的数据在两个页面中传递的方式有以下几种:        session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCredentials">
 <meta property="og:type" content="article">
 <meta property="og:title" content="web实现的数据在两个页面之间传递">
 <meta property="og:url" content="http://yoursite.com/2017/06/02/two-page-convery-data/index.html">
 <meta property="og:site_name" content="Carrie博客">
-<meta property="og:description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。 常见的数据在两个页面中传递的方式有以下几种:             session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCrede">
-<meta property="og:updated_time" content="2017-12-10T11:13:03.318Z">
+<meta property="og:description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。常见的数据在两个页面中传递的方式有以下几种:        session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCredentials">
+<meta property="og:updated_time" content="2018-03-16T13:08:12.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web实现的数据在两个页面之间传递">
-<meta name="twitter:description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。 常见的数据在两个页面中传递的方式有以下几种:             session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCrede">
+<meta name="twitter:description" content="在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。常见的数据在两个页面中传递的方式有以下几种:        session        牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCredentials">
 
   
 
@@ -136,7 +136,7 @@
 
 
   <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
+    <strong class="toc-title">Posts List</strong>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">window对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">url</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">隐藏的表单域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">本地存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">windows.postMessage</span></a></li></ol>
   </div>
 
@@ -180,9 +180,7 @@
 
   <div class="article-content">
     
-      <p></p><p>在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。</p><p></p>
-<p></p><p>常见的数据在两个页面中传递的方式有以下几种:</p><p></p>
-<ul><br>    <li><br>        <h2>session</h2><br>        <p>牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCredentials:true.</p><br>    </li><br>    <li><br>        <h2>window对象</h2><br>        <p>window代表的是打开的窗口或者frame，当两个页面在同一个窗口中展示的话，可以通过window对象来传递数据</p><br>    </li><br>    <li><br>        <h2>cookie</h2><br>        <p>可以在第一个页面设置cookie，在第二个人页面通过字符串方法筛选出传递的值</p><br>    </li><br>    <li><br>        <h2>url</h2><br>        <p>通过url后面的查询字符串来筛选出</p><br>    </li><br>    <li><br>        <h2>隐藏的表单域</h2><br>        <p>通过form表单进行提交,指定action为第二个页面的地址</p><br>    </li><br>    <li><br>        <h2>本地存储</h2><br>        <p>比如：localStorage</p><br>    </li><br>    <li><br>        <h2>windows.postMessage</h2><br>        <p>特点是可以进行跨域传输。传输的数据可以是字符串或者是对象，但是有的浏览器不支持对象传递</p><br>    </li><br><br></ul>
+      <p>在平时练习中我们经常会用到数据在两个页面之间传递，比如博客登陆成功后，需要拥有权限去写博客，而为了防止大家直接跳到某个页面执行相同的操作，我们需要在登陆成功后做一个标记，而第二个页面有这个标记时，才会赋予用户权限。</p><br><p>常见的数据在两个页面中传递的方式有以下几种:</p><br>        <h2>session</h2><br>        <p>牵扯到后台，要用session来做的话，注意如果跨域的话，需要设置withCredentials:true.</p><br>        <h2>window对象</h2><br>        <p>window代表的是打开的窗口或者frame，当两个页面在同一个窗口中展示的话，可以通过window对象来传递数据</p><br>        <h2>cookie</h2><br>        <p>可以在第一个页面设置cookie，在第二个人页面通过字符串方法筛选出传递的值</p><br>        <h2>url</h2><br>        <p>通过url后面的查询字符串来筛选出</p><br>        <h2>隐藏的表单域</h2><br>        <p>通过form表单进行提交,指定action为第二个页面的地址</p><br>        <h2>本地存储</h2><br>        <p>比如：localStorage</p><br>        <h2>windows.postMessage</h2><br>        <p>特点是可以进行跨域传输。传输的数据可以是字符串或者是对象，但是有的浏览器不支持对象传递</p>
 
     
   </div>
@@ -218,7 +216,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">关闭</span>
+      <span id="close" class="btn-close">Close</span>
     </div>
     <hr>
     <div class="modal-body">
