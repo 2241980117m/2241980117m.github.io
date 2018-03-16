@@ -15,16 +15,16 @@
     <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
   
 
-  <meta name="description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker. 原理 主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。 web worker子线程的局限性">
+  <meta name="description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker.原理主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。web worker子线程的局限性    同域限">
 <meta property="og:type" content="article">
 <meta property="og:title" content="web worker">
 <meta property="og:url" content="http://yoursite.com/2017/12/09/web-worker/index.html">
 <meta property="og:site_name" content="Carrie博客">
-<meta property="og:description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker. 原理 主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。 web worker子线程的局限性">
-<meta property="og:updated_time" content="2017-12-10T05:39:31.929Z">
+<meta property="og:description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker.原理主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。web worker子线程的局限性    同域限">
+<meta property="og:updated_time" content="2018-03-16T13:04:15.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web worker">
-<meta name="twitter:description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker. 原理 主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。 web worker子线程的局限性">
+<meta name="twitter:description" content="web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker.原理主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。web worker子线程的局限性    同域限">
 
   
 
@@ -136,8 +136,8 @@
 
 
   <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">web worker子线程的局限性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">只与父进程进行通信的普通worker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">shared worker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">service worker</span></a></li></ol></li></ol>
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">web worker子线程的局限性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">分类</span></a></li></ol>
   </div>
 
 
@@ -180,11 +180,8 @@
 
   <div class="article-content">
     
-      <p></p><p>web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker.</p><p></p>
-<p></p><h2>原理</h2><p></p>
-<p></p><p>主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。</p><p></p>
-<p></p><h2>web worker子线程的局限性</h2><p></p>
-<ul><br>    <li>同域限制</li><br>    <li>DOM限制。子线程不支持全局变量，如:window，document等，但是支持navigator</li><br>    <li>脚本限制。子线程不支持全局方法。比如:alert,confirm</li><br>    <li>文件限制。子线程不支持读取本地文件</li><br></ul><br><h2>分类</h2><br><ul><br>    <li><br>        <h3>只与父进程进行通信的普通worker</h3><br>    </li><br>    <li><br>        <h3>shared worker</h3><br>        <p>可以在多个浏览器下实现数据共享</p><br>    </li><br>    <li><br>        <h3>service worker</h3><br>    <p>前两种都只可以在网页中运行，当网页关闭worker线程关闭。而service worker可以不依赖网页运行。他提供cache API和拦截请求。cache仅在数据删除时，缓存会删除，使用cache API会忽略报文头中的指定是否过期的HTTP信息头。</p><br>    </li><br></ul>
+      <p>web worker则实现了js的多线程。web worker的执行不影响主线程的执行，同时主线程的执行不会影响到web worker线程的执行。当主线程需要进行大量的异步操作或者是大量的计算时，可以考虑使用web worker.</p><br><h2>原理</h2><br><p>主线程通过web worker在后台执行一系列计算或者异步操作，使得主进程能够不发生阻塞情况，带给用户良好的用户体验。</p><br><h2>web worker子线程的局限性</h2><br><ul><br>    <li>同域限制</li><br>    <li>DOM限制。子线程不支持全局变量，如:window，document等，但是支持navigator</li><br>    <li>脚本限制。子线程不支持全局方法。比如:alert,confirm</li><br>    <li>文件限制。子线程不支持读取本地文件</li><br></ul><br><h2>分类</h2><br>        1. 只与父进程进行通信的普通worker<br>        2. shared worker<br>      <p>可以在多个浏览器下实现数据共享</p><br>        3. service worker<br>    <p>前两种都只可以在网页中运行，当网页关闭worker线程关闭。而service worker可以不依赖网页运行。他提供cache API和拦截请求。cache仅在数据删除时，缓存会删除，使用cache API会忽略报文头中的指定是否过期的HTTP信息头。</p>
+
     
   </div>
 </article>
@@ -219,7 +216,7 @@
   <span id="cover" class="cover hide"></span>
   <div id="modal-dialog" class="modal-dialog hide-dialog">
     <div class="modal-header">
-      <span id="close" class="btn-close">关闭</span>
+      <span id="close" class="btn-close">Close</span>
     </div>
     <hr>
     <div class="modal-body">
