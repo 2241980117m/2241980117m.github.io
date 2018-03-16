@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS的float,BFC | Carrie博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="今天在写网页的时候突然发现给父元素设置text-align:center;子浮动元素不会脱离文档流,百思不得其解。重新看了下关于float的相关知识，就在这里和大家分享一下。  float  设置float的元素最后都会生成块级框。即不管设置float的元素是块级元素、行内元素，最后都可以设置width,height属性。 设置float的元素没有设置width,height属性的话，则该元素会尽">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS的float,BFC">
+<meta property="og:url" content="http://yoursite.com/2017/05/12/float,position,BFC,文档流/index.html">
+<meta property="og:site_name" content="Carrie博客">
+<meta property="og:description" content="今天在写网页的时候突然发现给父元素设置text-align:center;子浮动元素不会脱离文档流,百思不得其解。重新看了下关于float的相关知识，就在这里和大家分享一下。  float  设置float的元素最后都会生成块级框。即不管设置float的元素是块级元素、行内元素，最后都可以设置width,height属性。 设置float的元素没有设置width,height属性的话，则该元素会尽">
+<meta property="og:updated_time" content="2017-05-14T02:56:40.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS的float,BFC">
+<meta name="twitter:description" content="今天在写网页的时候突然发现给父元素设置text-align:center;子浮动元素不会脱离文档流,百思不得其解。重新看了下关于float的相关知识，就在这里和大家分享一下。  float  设置float的元素最后都会生成块级框。即不管设置float的元素是块级元素、行内元素，最后都可以设置width,height属性。 设置float的元素没有设置width,height属性的话，则该元素会尽">
+
+  
+
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">全部</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">全部</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">float</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">clear属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">清除浮动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">BFC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">具体看的资料</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-float,position,BFC,文档流" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">CSS的float,BFC</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.05.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Carrie</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>今天在写网页的时候突然发现给父元素设置text-align:center;子浮动元素不会脱离文档流,百思不得其解。重新看了下关于float的相关知识，就在这里和大家分享一下。</p>
+
+<p></p><h2>float</h2><p></p>
+<ul>
+<li>设置float的元素最后都会生成块级框。即不管设置float的元素是块级元素、行内元素，最后都可以设置width,height属性。</li>
+<li>设置float的元素没有设置width,height属性的话，则该元素会尽可能小的显示。</li>
+<li>设置float的元素会脱离文档流,但是却不会脱离文档流。即其他的布局元素会忽视float元素进行布局，但是文字会认为float元素存在，围绕float元素进行布局。</li>
+<li>设置float元素会默认显示在父元素的paddding之内。</li>
+<li>float元素会脱离文档流,但是当float元素的父元素也设置了float属性，则子元素会包含在父元素里。这就是float的延展性。<br><h2>clear属性</h2><br>clear属性可以取left,right,both值。但是在这里需要注意地点，设置clear的元素只会对其自身的布局有影响。<br><h2>清除浮动</h2><p>清除浮动有2种方法，分别是:</p></li>
+<li>给父元素设置overflow:hidden;</li>
+<li>给最后一个设置float的元素的后面添加一个设置clear:both的元素<br><h2>BFC</h2><p>BFC就是块级格式化上下文。生成BFC的情况有以下几种:</p></li>
+<li>设置float的元素</li>
+<li>position的值为absolute、fixed的元素</li>
+<li>非块级盒子的块级容器</li>
+<li>overflow值不为visiable的元素</li>
+<li>这里推荐一个教程，以便大家更好的了解及应用BFC <a href="https://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html" target="_blank" rel="external">BFC深入理解</a><br><hr><br><h2>具体看的资料</h2><br><a href="http://www.cnblogs.com/starof/p/4608962.html" target="_blank" rel="external">深入理解CSS浮动</a><br><a href="http://luopq.com/2015/11/08/CSS-float/" target="_blank" rel="external">详解CSS float</a></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/10/12/广度优先搜索算法/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/05/22/ES6-String-extension/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

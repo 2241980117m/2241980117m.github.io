@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>php内置处理函数 | Carrie博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="在这里，总结一下近期自己学过的一些php处理函数，按照处理函数处理的对象的不同来逐个说明。  变量gettype() 参数是变量名，用来获取变量的类型。settype()参数是变量名及要设置的变量的数据类型。类型应该是单引号的字符串形式。isset()函数参数是变量名,检查变量是否存在，存在返回true.这里的参数可以是一个变量或者是一个以逗号分隔的变量列表!unset()参数是变量名，用来销毁一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php内置处理函数">
+<meta property="og:url" content="http://yoursite.com/2016/09/21/php内置处理函数/index.html">
+<meta property="og:site_name" content="Carrie博客">
+<meta property="og:description" content="在这里，总结一下近期自己学过的一些php处理函数，按照处理函数处理的对象的不同来逐个说明。  变量gettype() 参数是变量名，用来获取变量的类型。settype()参数是变量名及要设置的变量的数据类型。类型应该是单引号的字符串形式。isset()函数参数是变量名,检查变量是否存在，存在返回true.这里的参数可以是一个变量或者是一个以逗号分隔的变量列表!unset()参数是变量名，用来销毁一">
+<meta property="og:updated_time" content="2017-05-11T03:04:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php内置处理函数">
+<meta name="twitter:description" content="在这里，总结一下近期自己学过的一些php处理函数，按照处理函数处理的对象的不同来逐个说明。  变量gettype() 参数是变量名，用来获取变量的类型。settype()参数是变量名及要设置的变量的数据类型。类型应该是单引号的字符串形式。isset()函数参数是变量名,检查变量是否存在，存在返回true.这里的参数可以是一个变量或者是一个以逗号分隔的变量列表!unset()参数是变量名，用来销毁一">
+
+  
+
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">全部</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">全部</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">文件处理函数</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-php内置处理函数" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">php内置处理函数</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.09.21</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Carrie</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>在这里，总结一下近期自己学过的一些php处理函数，按照处理函数处理的对象的不同来逐个说明。</p>
+<p><hr></p>
+<p></p><h2>变量</h2><br><strong>gettype()</strong><p></p>
+<p>参数是变量名，用来获取变量的类型。</p><br><strong>settype()</strong><br><p>参数是变量名及要设置的变量的数据类型。类型应该是单引号的字符串形式。</p><br><strong>isset()函数</strong><br><p>参数是变量名,检查变量是否存在，存在返回true.</p><br><p>这里的参数可以是一个变量或者是一个以逗号分隔的变量列表!</p><br><strong>unset()</strong><br><p>参数是变量名，用来销毁一个变量.</p><br><strong>empty()</strong><br><p>参数是变量名，检测一个变量是否存在，并且这个变量的值是否为0或空值，若是则返回true.</p><br><strong>intval(),floatval(),strval()</strong><br><p>可以根据函数名前面的名称判断将一个变量转化后的数据类型。其中将一个字符串传入intval()中，可以同时传递一个将此变量转化为整数的进制数。</p><br><h2>文件处理函数</h2><br><strong>fopen()</strong><br><p>用来打开文件，参数有2个，分别是文件指针文件模式，第两个参数必须是字符串形式,成功时返回一个文件指针</p><br><strong>fwrite()</strong><br><p>该函数用来写文件，它有3个参数，分别是文件指针，字符串变量或者字符串，字符串长度。</p><br><strong>fclose()</strong><br><p>用来关闭文件，参数是文件指针。关闭成功时返回true.</p><br><strong>feof()不再介绍</strong><br><strong>fgets()</strong><br><p>有两个参数，分别是文件指针和字符串长度，每次读取一行内容，遇到\n或者EOF或者达到最大长度时结束。可以读取到的最大长度是指定长度-1.</p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/09/20/php中数据的存储与检索/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/09/21/关于php的一些问题/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
