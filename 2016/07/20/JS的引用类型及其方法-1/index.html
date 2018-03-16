@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS的引用类型及其方法 | Carrie博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="引用类型 概念引用类型指的是由多个变量组成的对象。javascript不允许访问对象的内存空间。 当复制引用类型值的时候将变量的地址复制给新的变量，它们指向的是堆中的相同空间。  常见的引用类型  Object类型  定义定两种义有2种方法：1.new + object 构造函数 2.对象字面量的方法 new + object 构造函数如：var myobject=new object();myo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS的引用类型及其方法">
+<meta property="og:url" content="http://yoursite.com/2016/07/20/JS的引用类型及其方法-1/index.html">
+<meta property="og:site_name" content="Carrie博客">
+<meta property="og:description" content="引用类型 概念引用类型指的是由多个变量组成的对象。javascript不允许访问对象的内存空间。 当复制引用类型值的时候将变量的地址复制给新的变量，它们指向的是堆中的相同空间。  常见的引用类型  Object类型  定义定两种义有2种方法：1.new + object 构造函数 2.对象字面量的方法 new + object 构造函数如：var myobject=new object();myo">
+<meta property="og:updated_time" content="2017-05-11T03:04:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS的引用类型及其方法">
+<meta name="twitter:description" content="引用类型 概念引用类型指的是由多个变量组成的对象。javascript不允许访问对象的内存空间。 当复制引用类型值的时候将变量的地址复制给新的变量，它们指向的是堆中的相同空间。  常见的引用类型  Object类型  定义定两种义有2种方法：1.new + object 构造函数 2.对象字面量的方法 new + object 构造函数如：var myobject=new object();myo">
+
+  
+
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">全部</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">全部</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">常见的引用类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">function类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Number类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Boolean类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">String类型</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JS的引用类型及其方法-1" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JS的引用类型及其方法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Carrie</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p></p><h1>引用类型</h1><p></p>
+<p></p><h2>概念</h2><br>引用类型指的是由多个变量组成的对象。javascript不允许访问对象的内存空间。<br> 当复制引用类型值的时候将变量的地址复制给新的变量，它们指向的是堆中的相同空间。<br> <hr><br> <h2>常见的引用类型</h2><br>  <strong>Object类型</strong><p></p>
+<ol>
+<li>定义<br>定两种义有2种方法：1.new + object 构造函数 2.对象字面量的方法<ul>
+<li>new + object 构造函数<br>如：<br><code>var myobject=new object();</code><br><code>myobject.age=10;</code><br><code>myobject.name=&quot;john&quot;;</code></li>
+<li>对象字面量的方法<br>var myobject={<br>  name:”john”;<br>  age:10;<br> };<br>以上两种方法建立的myobject相同。</li>
+</ul>
+<ol>
+<li>访问object的属性<ul>
+<li>点表示法<br><code>alert(myobject.name);</code>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//john</li>
+<li>使用方括号<br><code>alert(myobject[&quot;name&quot;]);</code>      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//john</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>Array类型</strong><br>   1.定义<br>    定义有2种方法：<br>      1.构造函数   2.数组字面量表示法</p>
+<ul>
+<li>构造函数<pre><code>`var myArray=new Array();`
+其中，可以向构造函数里面传递数组长度，也可以传递数组元素。
+</code></pre></li>
+<li>数组字面量表示法<pre><code>var myArray=[]   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;//创建一个空数组
+可以向[]里面放入数组元素，不过数组元素需要字符串表示.每个数组都有length属性
+</code></pre>  2.检测数组<pre><code>通过Array.isArray()方法检测数组    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;//确定是不是数组
+</code></pre>  3.方法</li>
+<li>转换方法<pre><code>1.每个对象都有tostring(),tolocalstring(),valueof()方法。
+  tostring():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;返回以逗号分隔的数组元素的字符串表示，
+  valueof()和tolocalstring()与它相同。
+2.join()方法:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;接收一个参数，这个参数为数组元素的分隔符。
+</code></pre></li>
+<li>栈方法<pre><code>push():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;接收任意多个参数，在数组末尾添加任意多项。
+返回数组的长度
+</code></pre></li>
+<li>队列方法<pre><code>shift():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;删除数组的第一项，并返回该项的值。
+unshift():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;接收任意多个参数，在数组的开头添加任意多项，
+返回数组的长度。
+</code></pre></li>
+<li>重排序方法<pre><code>reverse():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;反转数组项的顺序
+sort():&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;默认情况下按升序排列，但是可以接收比较函数。
+比较函数&amp;nbsp;&amp;nbsp;&amp;nbsp;如果第一个值位于第二个值的前面返回一个负数，
+相等返回0，反之返回一个正数。
+</code></pre></li>
+<li>操作方法<pre><code>concat():&amp;nbsp;&amp;nbsp;&amp;nbsp;接收任意多个参数，创建一个新数组，该数组为原来数组的的副本。
+将参数里的元素逐个添加到数组末尾。并返回新数组。
+slice():&amp;nbsp;&amp;nbsp;&amp;nbsp;接收一个或两个参数。第一个参数为起始位置，第二个参数为结束位置。
+当只有一个参数时，默认为从起始位置到数组结束。返回新数组。
+splice():&amp;nbsp;&amp;nbsp;&amp;nbsp;接收2-3个参数。第一个参数为起始位置，第二个参数为数组的项数，
+第三个参数为要添加给数组的字符串。
+</code></pre></li>
+<li>位置方法<pre><code>indexOf()和lastIndexOf()都返回查找的项在数组中的起始位置。
+可接收2个参数，分别是 查找的项和起始位置。indexOf()从数组开始查找，lastIndexOf()从数组末尾查找。
+</code></pre>-迭代方法<pre><code>every:&amp;nbsp;&amp;nbsp;&amp;nbsp;对数组的每一项运行函数，当数组的每一项都返回true时，返回ture;
+forEach():&amp;nbsp;&amp;nbsp;&amp;nbsp;对数组的每一项运行函数，无返回值。
+map():&amp;nbsp;&amp;nbsp;&amp;nbsp;对数组的每一项运行函数，返回数组每项运行的结果组成的数组
+some():&amp;nbsp;&amp;nbsp;&amp;nbsp;对数组的每一项运行函数，当某一项返回true时，返回值是true
+filter():&amp;nbsp;&amp;nbsp;&amp;nbsp;对数组的每一项运行函数，返回返回值为true的项组成的数组
+</code></pre></li>
+<li>归并方法<pre><code>reduce(),reduceRight():&amp;nbsp;&amp;nbsp;&amp;nbsp;可接收4个参数，分别是：前一个值，
+当前值，项的索引和数组对象。
+reduce()从数组开头开始，第一项与第二项运行函数的返回值充当前一个值，再与数组的第三项运行函数...
+reduceRight()只是从数组尾部开始运行函数。
+&lt;hr /&gt;
+</code></pre><h2>function类型</h2><br>   1.定义<pre><code>函数定义有3种方法：分别是函数表达式，构造函数和 function name(){};
+</code></pre></li>
+<li>function name    <pre><code>function fun(){
+      return 0;
+}
+</code></pre></li>
+<li>函数表达式<pre><code>var sum=function(a,b)
+</code></pre></li>
+<li>构造函数<pre><code>var sum=new function(&quot;#&quot;,&quot;#&quot;,...)
+    **function构造函数可以接受任意多个参数，但是最后一个参数必须是函数体**
+</code></pre>  2.函数重载<pre><code>当同一个函数名定义了两个不同的函数体时，只对第二个函数体有效。因为第二个覆盖了第一个
+</code></pre>  3.函数声明和函数表达式<pre><code>在执行代码之前，解析器进行函数声明，javascript引擎第一遍会声明函数并将函数声明添加到执行环境中，
+将函数声明置于源代码树的顶部。
+如果用函数表达式法或构造函数法定义函数，则函数调用可置于函数声明之前。若为函数表达式，
+则调用必须在声明之后。因为函数表达式当执行到它的代码行，它才会真正解析执行。
+</code></pre>  4.函数的内部属性<pre><code>- arguement.callee :&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+消除内部耦合,内部耦合即将递归函数名赋给一个变量a，将递归函数改变后，调用a它的函数值会改变
+- this :&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;引用函数的环境对象，
+当在全局作用域执行函数时，this引用window。
+- caller :&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;调用当前函数的引用。
+在全局作用域调用当前函数，它的值为NULL.
+</code></pre>  5.函数的属性及方法<ul>
+<li>属性<br>length :&nbsp;&nbsp;&nbsp;表示接收的参数个数<br>prototype :&nbsp;&nbsp;&nbsp;所有实例方法的真正所在。不可枚举。</li>
+<li>方法<br>apply() :&nbsp;&nbsp;&nbsp;在特定的作用域调用函数，接收2个参数,<pre><code>分别是:函数的作用域，参数数组(arguement对象)。
+</code></pre>call() ：&nbsp;&nbsp;&nbsp;与apply()相同，不过接收参数的方式不同，将参数逐个列举出来。<br>bind() :&nbsp;&nbsp;&nbsp;创建函数实例，将this值绑定到传入的参数上。 </li>
+</ul>
+</li>
+</ul>
+<p></p><h2>Number类型</h2><p></p>
+<ul>
+<li>toFixed() :&nbsp;&nbsp;&nbsp;接收一个数值参数，返回数字的指定小数位数的字符串表示。</li>
+<li>toString(),toLocalString() :&nbsp;&nbsp;&nbsp;返回字符串形式的数值。<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中toString()可接收一个参数，它表示转化的基数。</li>
+<li>valueof()&nbsp;&nbsp;&nbsp;返回对象表示的基本类型的数值。</li>
+<li>toExponential() :&nbsp;&nbsp;&nbsp;返回指数表示。</li>
+<li>toPrecision() :&nbsp;&nbsp;&nbsp;返回数字的合适表示，可以是toFixed(),<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;也可以是toExponential().<h2>Boolean类型</h2></li>
+<li>Boolean类型是与布尔值相对应的引用类型。布尔表达式中的所有对象都会被转化为true.</li>
+<li>type对引用类型返回object,instanceof对引用类型返回true.<h2>String类型</h2></li>
+<li>字符方法<br>charAt :&nbsp;&nbsp;&nbsp;接收一个参数，即基于0的位置，返回该位置的字符。<br>charCodeAt :&nbsp;&nbsp;&nbsp;与charAt()相同，返回该位置的字符的字符编码。</li>
+<li>字符串操作方法<br> 1.concat() :&nbsp;&nbsp;&nbsp;上面已经描述过，不再赘述.<br> 2.sclice() :&nbsp;&nbsp;&nbsp;上面已经描述过，不再赘述.<br> 3.substr() :&nbsp;&nbsp;&amp;nbsp；可以接收1-2个参数，分别是:&nbsp;&nbsp;&nbsp;起始位置，<br> 返回字符的个数。返回值是一个字符串或者一个字符。它会将第一个负值参数加上字符串长度<br> 得到一个正值，将第二个负值参数转化为0.<br> 4.substring() :&nbsp;&nbsp;&nbsp;接收1-2个参数，分别是:&nbsp;&nbsp;&nbsp;起始位置，<br> 结束位置。返回值是一个字符或字符串。它会把所有负值转化为0.</li>
+<li>字符位置方法<br> indexOf(),lastIndexOf() :&nbsp;&nbsp;&nbsp;上面已经描述过，不再赘述.</li>
+<li>trim()方法<br> 创建一个字符串的副本，删除字符串的前缀和后缀的所有空格，返回得到的字符串。</li>
+<li>字符串大小写转化<br>  1.toLowerCase() :&nbsp;&nbsp;&nbsp;将所有字符转化为小写。<br>  2.toUpperCase() :&nbsp;&nbsp;&nbsp;将所有字符转化为大写。<br>  3.toLocalLowerCase(),toLocalUppercase():与上述两个作用相同，只是针对特定地区实现。</li>
+<li>字符串模式匹配<br> 1.match() :&nbsp;&nbsp;&nbsp;接收一个参数，要么是正则表达式，要么是RegExp对象。返回一个数组。<br> 2.search() :&nbsp;&nbsp;&nbsp;接收参数与match()相同。返回字符串中第一个匹配项的索引。<br> 没有找到匹配项返回-1.<br> 3.replace() :&nbsp;&nbsp;&nbsp;接收2个参数。分别是 : 字符串(RegExp对象)和函数(字符串)。<br> 如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有的字符串，就是将第一个<br> 参数设为正则表达式，且指定全局标志(g).<br> 4.localCompare() :&nbsp;&nbsp;&nbsp;比较两个字符串的大小。返回0，-1或1.<br> 5.fromCharCode() : 接收任意多个参数，它们是字符编码，返回与之对应的字符串。<br><strong>Date</strong><br><strong>Exe</strong></li>
+</ul>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/07/19/用github-pages和hexo搭建博客/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/07/20/正则表达式/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

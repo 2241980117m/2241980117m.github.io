@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>闭包的相关知识 | Carrie博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="闭包的定义闭包就是可以访问其他函数里的变量的一个函数。 创建闭包的方式常见的方式为:在一个函数里创建另一个函数。即使闭包函数被返回，它仍然可以访问到外部函数的变量。因为内部函数的作用域中包含了外部函数的作用域。 函数的执行过程在调用一个函数时，会创建一个执行环境和作用域链。而在函数执行过程中，需要在作用域链中查找变量。每个函数都有一个变量对象。全局环境的变量对象始终存在，而局部环境的而变量对象只在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闭包的相关知识">
+<meta property="og:url" content="http://yoursite.com/2016/07/29/闭包的相关知识/index.html">
+<meta property="og:site_name" content="Carrie博客">
+<meta property="og:description" content="闭包的定义闭包就是可以访问其他函数里的变量的一个函数。 创建闭包的方式常见的方式为:在一个函数里创建另一个函数。即使闭包函数被返回，它仍然可以访问到外部函数的变量。因为内部函数的作用域中包含了外部函数的作用域。 函数的执行过程在调用一个函数时，会创建一个执行环境和作用域链。而在函数执行过程中，需要在作用域链中查找变量。每个函数都有一个变量对象。全局环境的变量对象始终存在，而局部环境的而变量对象只在">
+<meta property="og:updated_time" content="2017-05-11T03:04:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="闭包的相关知识">
+<meta name="twitter:description" content="闭包的定义闭包就是可以访问其他函数里的变量的一个函数。 创建闭包的方式常见的方式为:在一个函数里创建另一个函数。即使闭包函数被返回，它仍然可以访问到外部函数的变量。因为内部函数的作用域中包含了外部函数的作用域。 函数的执行过程在调用一个函数时，会创建一个执行环境和作用域链。而在函数执行过程中，需要在作用域链中查找变量。每个函数都有一个变量对象。全局环境的变量对象始终存在，而局部环境的而变量对象只在">
+
+  
+
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">全部</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">全部</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">闭包的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">创建闭包的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">函数的执行过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">闭包的2个特殊变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">闭包与变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">模仿块级作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">内存泄漏</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-闭包的相关知识" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">闭包的相关知识</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Carrie</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p></p><h2>闭包的定义</h2><br>闭包就是可以访问其他函数里的变量的一个函数。<p></p>
+<p></p><h2>创建闭包的方式</h2><br>常见的方式为:在一个函数里创建另一个函数。<br>即使闭包函数被返回，它仍然可以访问到外部函数的变量。<br>因为内部函数的作用域中包含了外部函数的作用域。<p></p>
+<p></p><h2>函数的执行过程</h2><br>在调用一个函数时，会创建一个执行环境和作用域链。<br>而在函数执行过程中，需要在作用域链中查找变量。每个函数都有一个变量对象。<br>全局环境的变量对象始终存在，而局部环境的而变量对象只在函数的执行过程中存在。<br>在创建一个内部函数时，会先创建一个包含全局环境的变量对象的作用域链，被保存在内部属性中，<br>当调用内部函数时，会为内部函数创建一个执行环境，通过复制刚才创建的全局变量对象的作用域链<br>构建执行环境的作用链。而作用域链就是指向变量对象的指针列表。一般来说，当内部函数执行完毕后，会销毁它的变量对象。而闭包有所不同。作用域链会被销毁，而变量对象仍然存在，只有当匿名函数被销毁后，匿名函数的外部函数的活动对象才会被销毁。因为匿名函数还在引用外部函数的变量。<p></p>
+<p></p><h2>闭包的2个特殊变量</h2><br>1.this:指函数的执行环境，在全局作用域中使用它，它指向window;当它作为一个对象的方法使用时，指向这个对象。<br>2.arguements:函数形参的参数数组;<br><strong>注意:this,arguments只能访问到其活动对象，不会访问到外部函数的这两个变量。</strong>如：<br>var name=”john”;<br>var obj={<br>     name:”mike”;<br>     getname:function(){<br>         return function(){<br>         return this.name;<br>     }<br>    }<br>}<br>//&nbsp;&nbsp;&nbsp;&nbsp;john;<p></p>
+<p></p><h2>闭包与变量</h2><br>在闭包中访问外部函数的变量时，只能访问到外部函数的变量的最终结果;要始终注意这点，否则结果会很出乎意料，这种情况在循环中出现最多。<p></p>
+<p></p><h2>模仿块级作用域</h2><br>在c,c++中存在块级作用域，而在js中不存在。但是使用闭包可以达到块级作用域的效果。<br>（function(){<br>//&nbsp;&nbsp;&nbsp;&nbsp;函数语句<br>}）();<br>第一个括号相当于函数表达式，第二个括号会立即执行这个函数。<p></p>
+<p></p><h2>内存泄漏</h2><br>如果闭包的作用域链中存在一个HTML元素，该元素就无法被销毁。<p></p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/07/29/继承/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/08/03/js的内存管理/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

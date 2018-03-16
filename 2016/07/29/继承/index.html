@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>继承 | Carrie博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Carrie,前端,用户体验,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="上面说过可以通过原型链实现继承，不过在创建子类型的实例时，不能向超类型构造函数传递参数。这里继续说明几种继承模式 借用构造函数特点：在子类型构造函数的内部调用超类型构造函数，可以使用apply()或者call().如：function super(name){    this.name=name;}function sub(){    super.call(this,”john”);    thi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="继承">
+<meta property="og:url" content="http://yoursite.com/2016/07/29/继承/index.html">
+<meta property="og:site_name" content="Carrie博客">
+<meta property="og:description" content="上面说过可以通过原型链实现继承，不过在创建子类型的实例时，不能向超类型构造函数传递参数。这里继续说明几种继承模式 借用构造函数特点：在子类型构造函数的内部调用超类型构造函数，可以使用apply()或者call().如：function super(name){    this.name=name;}function sub(){    super.call(this,”john”);    thi">
+<meta property="og:updated_time" content="2017-05-11T03:04:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="继承">
+<meta name="twitter:description" content="上面说过可以通过原型链实现继承，不过在创建子类型的实例时，不能向超类型构造函数传递参数。这里继续说明几种继承模式 借用构造函数特点：在子类型构造函数的内部调用超类型构造函数，可以使用apply()或者call().如：function super(name){    this.name=name;}function sub(){    super.call(this,”john”);    thi">
+
+  
+
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">全部</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">全部</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="ROUND_RECT"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">借用构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">原型式继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">寄生式继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">寄生组合式继承</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-继承" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">继承</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.07.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Carrie</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>上面说过可以通过原型链实现继承，不过在创建子类型的实例时，不能向超类型构造函数传递参数。<br>这里继续说明几种继承模式</strong></p>
+<p></p><h2>借用构造函数</h2><br>特点：在子类型构造函数的内部调用超类型构造函数，可以使用apply()或者call().<br>如：<br>function super(name){<br>    this.name=name;<br>}<br>function sub(){<br>    super.call(this,”john”);<br>    this.age=20;<br>}<br>这样就相当于在sub的每个实例中调用了super(),获得了在超类型构造函数中定义的属性和方法，<br>不过却不能进行函数复用；因此可以考虑使用以下继承的方法。<p></p>
+<p></p><h2>组合继承</h2><br>组合继承又称伪经典继承。是将原型链和构造函数组合到一起的一种继承方法<br>如：<br>function super(name){<br>    this.name=name;<br>    this.color=[“red”,”blue”];<br>}<br>super.prototype.sayname=function(){<br>    alert(this.name);<br>}<br>function sub(name,age){<br>    super.call(this,name);<br>    this.age=age;<br>}<br>sub.prototype=new super();<br>sub.prototype.constructor=sub;<br>sub.prototype.sayage=function(){<br>    alert(this.age);<br>}<br>这样通过在原型上定义函数就可以提高函数的复用。不过这种方法使用了两次超类型构造函数。<p></p>
+<p></p><h2>原型式继承</h2><br>特点:基于已有对象创建新对象，还不用创建自定义类型。如:<br> function object(o){<br>    function F();<br>    F.prototype=o;<br>    return new F();<br> }<br> ES5用Object.create()规范了原型式继承，接收两个参数，分别是：原型对象，为新对象定义额外属性的对象<p></p>
+<p></p><h2>寄生式继承</h2>（承接上面的object函数）<br> 与寄生构造函数和工厂模式类似，是一个封装继承过程的函数。<br> function create(o){<br>      var clone=object(o);<br>      clone.sayhi=function(){<br>      alery(“hi”);<br>  }<br>    return clone;<br> }<br> 但是它不能实现函数复用。<p></p>
+<p></p><h2>寄生组合式继承</h2><br>function super(name){<br>    this.name=name;<br>}<br>super.prototype.sayhi=function(){<br>    alert(“hi”);<br>}<br>function sub(name,age){<br>    super.call(this,name);<br>    this.age=age;<br>}<br>sub.portotype=object(super.portotype);<br>sub.prototype.constructor=sub;<br>这种方法是人们普遍接受的方法。<p></p>
+
+    
+  </div>
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/07/24/原型链之深入理解/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/07/29/闭包的相关知识/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="ROUND_RECT"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
